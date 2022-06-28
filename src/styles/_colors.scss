@@ -4,4 +4,11 @@ $theme-colors: (
   "info": #17a2b8,
   "warning": #ffc107,
   "danger": #c6538c,
+  "shadow": rgba(0, 0, 0, 0.4),
 );
+
+$text-colors: (
+  "main": #fff,
+  "shadowed": rgba(255, 255, 255, .3),
+  "secondary": #FF70B4,
+)

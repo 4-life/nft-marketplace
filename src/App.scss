@@ -1,6 +1,78 @@
-@use "sass:map";
+@use 'sass:map';
 @import 'styles/_colors.scss';
+@import 'styles/_spacing.scss';
+@import 'styles/_breakpoints.scss';
 
-h1 {
-  color: map.get($theme-colors, "primary");
+.App {
+  position: relative;
+  padding: {
+    top: 1px;
+    bottom: 0;
+    left: map.get($spacing, "3");
+  }
+  margin: 0;
+  width: 100%;
+  color: map.get($text-colors, "main");
+  height: 100vh;
+  overflow-y: scroll;
+
+  @media (max-width: $layout-breakpoint-small) {
+    padding: {
+      top: 1px;
+      bottom: 0;
+      left: map.get($spacing, "1");
+      right: map.get($spacing, "1");
+    }
+  }
+
+  .App-header {
+    max-width: 1200px;
+    margin: {
+      top: map.get($spacing, "4");
+      bottom: map.get($spacing, "2");
+    };
+
+    .Logo {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-bottom: map.get($spacing, "4");
+
+      h1 {
+        font-weight: 600;
+        font-size: 1.4em;
+        letter-spacing: 2px;
+      }
+
+      figure {
+        width: 40px;
+        height: 50px;
+        background: url("../public/images/logo.png");
+        background-size: cover;
+        background-position: center;
+        margin: 0;
+        margin-right: map.get($spacing, "1");
+      }
+    }
+
+    h2 {
+      font-weight:lighter;
+      font-size: 60px;
+      letter-spacing: 2px;
+      margin: 0;
+    }
+  }
+
+  main {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 20vw;
+    justify-content: flex-start;
+
+    @media (max-width: $layout-breakpoint-small) {
+      padding-left: 0;
+      justify-content: space-around;
+    }
+  }
 }
+
