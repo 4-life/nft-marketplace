@@ -1,0 +1,6 @@
+@use "sass:map";
+@import 'styles/_colors.scss';
+
+h1 {
+  color: map.get($theme-colors, "primary");
+}
