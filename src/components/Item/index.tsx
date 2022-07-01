@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Buy } from 'types';
 import kFormatter from 'utils/kFormatter';
 import getTimeAgo from 'utils/timeAgo';
+import { getImageUrl, getAvatarsUrl } from 'utils/getImagesUrl';
 import './style.scss';
-
-const dummyAvatar = 'images/dummy-avatar.webp';
-const dummyImage = 'images/dummy-image.png';
 
 type Props = { item: Buy | undefined };
 
@@ -19,7 +17,7 @@ function Item({ item }: Props) {
       <div className="content">
         <figure
           className="itemPic"
-          style={{ backgroundImage: item.pic || dummyImage, color: '#ccc' }}
+          style={{ backgroundImage: `url(${getImageUrl(item.pic)})` }}
         />
 
         <div className="description">
@@ -27,7 +25,9 @@ function Item({ item }: Props) {
             <div className="authorData">
               <figure
                 className="authorAvatar"
-                style={{ backgroundImage: item.author.avatar || dummyAvatar }}
+                style={{
+                  backgroundImage: `url(${getAvatarsUrl(item.author.avatar)})`,
+                }}
               />
               <div className="name">
                 {item.author.name}
@@ -39,7 +39,7 @@ function Item({ item }: Props) {
 
           <div className="price">
             <div className="name">{item.title}</div>
-            <div className="priceVal">{item.price}</div>
+            <div className="priceVal">{item.price} ETH</div>
           </div>
 
           <div className="activity">
@@ -52,4 +52,4 @@ function Item({ item }: Props) {
   );
 }
 
-export default Item;
+export default memo(Item);

@@ -34,9 +34,9 @@
     height: 200px;
     margin: 0;
     box-shadow: 0px 0px 25px 0px map.get($theme-colors, "shadow") inset;
-    background-image: url(../../../public/images/dummy-image.png);
+    background-image: url(../../../public/images/dummy-image.webp);
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size: cover;
     background-position: center center;
     transition: all .7s ease;
   }
@@ -66,6 +66,8 @@
           overflow: hidden;
           text-overflow: ellipsis;
           font-size: 10pt;
+          white-space: nowrap;
+          padding: 2px 0;
         }
 
         .authorAvatar {
@@ -102,15 +104,19 @@
     .price {
       display: flex;
       justify-content: space-between;
-      align-items: end;
+      align-items: flex-end;
       color: map.get($text-colors, "shadowed");
-      font-size: 20px;
-      line-height: 32px;
+      font-size: 17px;
+      line-height: 25px;
       font-weight: 400;
 
       .priceVal {
         font-size: 14px;
         line-height: 25px;
+      }
+
+      .name {
+        padding-right: map.get($spacing, "1");
       }
     }
 
@@ -159,7 +165,7 @@
     }
 
     .itemPic {
-      background-size: 110%;
+      transform: scale(1.1);
     }
 
     .price .name {
@@ -172,5 +178,11 @@
       opacity: 1;
     }
   }
+
+  @media (max-width: $layout-breakpoint-small) {
+    margin: map.get($spacing, "1");
+    width: 45%;
+  }
+
 }
 
