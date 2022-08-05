@@ -45,6 +45,17 @@
     };
 
     padding-left: map.get($spacing, "3");
+    padding-right: map.get($spacing, "3");
+
+    .subheader {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      @media (max-width: $layout-breakpoint-medium) {
+        flex-wrap: wrap;
+      }
+    }
 
     .Logo {
       display: flex;
@@ -83,14 +94,14 @@
     padding-left: 20vw;
     justify-content: flex-start;
 
-    @media (max-width: $layout-breakpoint-small) {
+    @media (max-width: $layout-breakpoint-medium) {
       padding-left: 0;
       justify-content: space-around;
     }
   }
 
 
-  @media (max-width: $layout-breakpoint-small) {
+  @media (max-width: $layout-breakpoint-medium) {
     background-size: contain;
   }
 }

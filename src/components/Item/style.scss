@@ -179,9 +179,13 @@
     }
   }
 
-  @media (max-width: $layout-breakpoint-small) {
+  @media (max-width: $layout-breakpoint-medium) {
     margin: map.get($spacing, "1");
     width: 45%;
+  }
+
+  @media (max-width: $layout-breakpoint-small) {
+    width: 90%;
   }
 
 }
