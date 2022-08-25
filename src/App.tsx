@@ -21,7 +21,7 @@ function App() {
         <header className="App-header">
           <div className="Logo">
             <figure />
-            <h1>System32</h1>
+            <h1>Digital</h1>
           </div>
 
           <div className="subheader">
@@ -36,7 +36,9 @@ function App() {
           {items.map((d) => (
             <Item key={d.id} item={d} />
           ))}
-          <Item item={undefined} />
+          {items.map((d) => (
+            <Item key={`hidden${d.id}`} item={undefined} />
+          ))}
         </main>
       </div>
     </div>

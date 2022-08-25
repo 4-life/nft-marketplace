@@ -47,12 +47,14 @@
     padding-right: map.get($spacing, "3");
 
     .subheader {
+      padding-right: 5vw;
       display: flex;
       justify-content: space-between;
       align-items: center;
 
       @media (max-width: $layout-breakpoint-medium) {
         flex-wrap: wrap;
+        padding-right: 0;
       }
     }
 
@@ -65,11 +67,11 @@
       h1 {
         font-weight: 600;
         font-size: 1.4em;
-        letter-spacing: 2px;
+        letter-spacing: 1px;
       }
 
       figure {
-        width: 40px;
+        width: 50px;
         height: 50px;
         background: url("../public/images/logo.png");
         background-size: cover;
@@ -90,11 +92,13 @@
   main {
     display: flex;
     flex-wrap: wrap;
-    padding-left: 20vw;
-    justify-content: flex-start;
+    padding-left: 10vw;
+    padding-right: 5vw;
+    justify-content: flex-end;
 
-    @media (max-width: $layout-breakpoint-medium) {
+    @media (max-width: $layout-breakpoint-large) {
       padding-left: 0;
+      padding-right: 0;
       justify-content: space-around;
     }
   }

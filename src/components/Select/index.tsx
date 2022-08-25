@@ -25,11 +25,13 @@ const rangeOptions: Options<Option> = [
 ];
 
 const defaultBackgroundColor =
-  'linear-gradient(152deg, rgba(211,94,220,0.8) -80%, rgba(29,34,35,0) 80%)';
+  'linear-gradient(152deg, rgba(211,94,220,1) -80%, rgba(29,34,35,0) 80%)';
 const hoverBackgroundColor =
   'linear-gradient(152deg, rgba(211,94,220,1) -80%, rgba(29,34,35,0) 80%)';
 const activeBackgroundColor =
   'linear-gradient(152deg, rgba(211,94,220,1) -80%, rgba(211,94,220,0.3) 80%)';
+const menuBackgroundColor =
+  'linear-gradient(152deg, rgba(211,94,220,1) -80%, rgba(29,34,35,0.9) 80%)';
 
 const selectorStyles: StylesConfig<Option, false, GroupBase<Option>> = {
   control: (props) => ({
@@ -75,7 +77,7 @@ const selectorStyles: StylesConfig<Option, false, GroupBase<Option>> = {
     color: 'inherit',
     borderRadius: '10px',
     overflow: 'hidden',
-    background: defaultBackgroundColor,
+    background: menuBackgroundColor,
   }),
   menuList: (props) => ({
     ...props,
