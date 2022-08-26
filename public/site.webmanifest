@@ -1,5 +1,5 @@
 {
-    "name": "Lambda.Digital | NFT Marketplace",
+    "name": "Lambda.Digital",
     "short_name": "Lambda.Digital",
     "icons": [
         {
@@ -13,7 +13,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#e6e6e6",
-    "background_color": "#e6e6e6",
+    "theme_color": "#070030",
+    "background_color": "#070030",
     "display": "standalone"
 }

@@ -1,13 +1,6 @@
 @use 'sass:map';
-@import 'styles/_colors.scss';
+@import 'styles/_mixins.scss';
 
 .selector-wrap {
-  color: map.get($text-colors, "main");
-  width: 150px;
-  position: relative;
-  background: url("../../../public/images/control-border.svg");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  padding: 0;
+  @include button;
 }

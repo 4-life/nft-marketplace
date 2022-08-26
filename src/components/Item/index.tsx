@@ -5,15 +5,15 @@ import getTimeAgo from 'utils/timeAgo';
 import { getImageUrl, getAvatarsUrl } from 'utils/getImagesUrl';
 import './style.scss';
 
-type Props = { item: Buy | undefined };
+type Props = { item: Buy | undefined; show?: (details: Buy) => void };
 
-function Item({ item }: Props) {
+function Item({ item, show }: Props) {
   if (!item) {
     return <div className="Item hidden" />;
   }
 
   return (
-    <div className="Item">
+    <button className="Item" onClick={() => show?.(item)} type="button">
       <div className="content">
         <figure
           className="itemPic"
@@ -48,7 +48,7 @@ function Item({ item }: Props) {
           </div>
         </div>
       </div>
-    </div>
+    </button>
   );
 }
 

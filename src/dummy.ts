@@ -11,7 +11,7 @@ const data: Buy[] = [
     pic: '1e54778d-a939-4f0a-9acb-134b69007c25.webp',
     likes: 457,
     comments: 923,
-    price: '0.0000123',
+    price: '0.00123',
     publishDate: new Date(2022, 6, 1),
   },
   {
@@ -24,7 +24,7 @@ const data: Buy[] = [
     pic: '8ed4b930-5830-4de5-818c-7ab06314746c.webp',
     likes: 34,
     comments: 101,
-    price: '0.0000003',
+    price: '0.00003',
     publishDate: new Date(2022, 6, 1),
   },
   {
@@ -37,7 +37,7 @@ const data: Buy[] = [
     pic: '9e668765-5414-4993-a956-99930b3791d7.webp',
     likes: 457,
     comments: 923,
-    price: '0.000056',
+    price: '0.0056',
     publishDate: new Date(2022, 6, 1),
   },
   {
@@ -50,7 +50,7 @@ const data: Buy[] = [
     pic: '45f68c2a-101c-456d-a736-b808d7f930a8.webp',
     likes: 12,
     comments: 56,
-    price: '0.00000123',
+    price: '0.000123',
     publishDate: new Date(2022, 6, 1),
   },
   {
@@ -63,7 +63,7 @@ const data: Buy[] = [
     pic: '709e6ebf-1ecc-4a6d-b1c7-9f2072b3c01f.webp',
     likes: 27,
     comments: 91,
-    price: '0.000023456',
+    price: '0.0023456',
     publishDate: new Date(2022, 6, 1),
   },
   {
@@ -76,7 +76,7 @@ const data: Buy[] = [
     pic: '04314f8b-6c8d-41c5-95be-e78848eee6e1.webp',
     likes: 111,
     comments: 999,
-    price: '0.0000101',
+    price: '0.00101',
     publishDate: new Date(2022, 6, 1),
   },
   {
@@ -89,7 +89,7 @@ const data: Buy[] = [
     pic: '5914ae6c-0510-4456-9979-dca86f9b7f55.webp',
     likes: 4,
     comments: 23,
-    price: '0.0000623',
+    price: '0.00623',
     publishDate: new Date(2022, 6, 1),
   },
   {
@@ -102,7 +102,7 @@ const data: Buy[] = [
     pic: 'a82e12b9-de17-4b40-8ca3-5c67fd9d23a9.webp',
     likes: 678,
     comments: 1923,
-    price: '0.001232345',
+    price: '0.1232345',
     publishDate: new Date(2022, 6, 1),
   },
   {
@@ -115,7 +115,7 @@ const data: Buy[] = [
     pic: 'be31b615-5cf3-4939-96aa-78bb880fae87.webp',
     likes: 0,
     comments: 4,
-    price: '0.00000323',
+    price: '0.000323',
     publishDate: new Date(2022, 1, 1),
   },
   {
@@ -128,7 +128,7 @@ const data: Buy[] = [
     pic: 'd3f8ab56-e172-46ad-9332-cbddc6bbe96f.webp',
     likes: 10,
     comments: 31,
-    price: '0.00000012301',
+    price: '0.000012301',
     publishDate: new Date(2021, 5, 6),
   },
   {
@@ -141,7 +141,7 @@ const data: Buy[] = [
     pic: 'e6590b08-12d4-42f6-8540-af88677e1387.webp',
     likes: 91,
     comments: 345,
-    price: '0.000002013',
+    price: '0.0002013',
     publishDate: new Date(2021, 5, 6),
   },
   {
@@ -152,7 +152,7 @@ const data: Buy[] = [
     views: 12,
     likes: 0,
     comments: 0,
-    price: '0.00000001',
+    price: '0.000001',
     publishDate: new Date(2021, 5, 6),
   },
 ].map((e, index) => ({

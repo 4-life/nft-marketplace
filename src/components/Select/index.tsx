@@ -24,10 +24,6 @@ const rangeOptions: Options<Option> = [
   { value: 365, label: '1 Year' },
 ];
 
-const defaultBackgroundColor =
-  'linear-gradient(152deg, rgba(211,94,220,1) -80%, rgba(29,34,35,0) 80%)';
-const hoverBackgroundColor =
-  'linear-gradient(152deg, rgba(211,94,220,1) -80%, rgba(29,34,35,0) 80%)';
 const activeBackgroundColor =
   'linear-gradient(152deg, rgba(211,94,220,1) -80%, rgba(211,94,220,0.3) 80%)';
 const menuBackgroundColor =
@@ -36,14 +32,14 @@ const menuBackgroundColor =
 const selectorStyles: StylesConfig<Option, false, GroupBase<Option>> = {
   control: (props) => ({
     ...props,
-    background: defaultBackgroundColor,
+    background: 'transparent',
     borderRadius: '30px',
     padding: '15px 20px',
     border: 'none',
     cursor: 'pointer',
     boxShadow: 'none',
     ':hover': {
-      background: hoverBackgroundColor,
+      background: 'transparent',
       border: 'none',
       boxShadow: 'none',
     },
