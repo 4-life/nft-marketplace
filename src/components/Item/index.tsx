@@ -1,24 +1,41 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { Buy } from 'types';
 import kFormatter from 'utils/kFormatter';
 import getTimeAgo from 'utils/timeAgo';
 import { getImageUrl, getAvatarsUrl } from 'utils/getImagesUrl';
+import Loader from '../Loader';
 import './style.scss';
 
 type Props = { item: Buy | undefined; show?: (details: Buy) => void };
 
 function Item({ item, show }: Props) {
+  const [loaded, setLoaded] = useState(false);
   if (!item) {
     return <div className="Item hidden" />;
   }
 
+  const imageUrl = getImageUrl(item.pic);
+
   return (
-    <button className="Item" onClick={() => show?.(item)} type="button">
+    <button
+      className="Item"
+      onClick={() => loaded && show?.(item)}
+      type="button"
+    >
+      {/* use img only for loaded event */}
+      <img
+        alt=""
+        style={{ display: 'none' }}
+        src={imageUrl}
+        onLoad={() => setLoaded(true)}
+      />
       <div className="content">
         <figure
           className="itemPic"
-          style={{ backgroundImage: `url(${getImageUrl(item.pic)})` }}
-        />
+          style={{ backgroundImage: loaded ? `url(${imageUrl})` : 'none' }}
+        >
+          {!loaded ? <Loader /> : null}
+        </figure>
 
         <div className="description">
           <div className="author">
