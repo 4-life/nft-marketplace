@@ -6,6 +6,7 @@ import './App.scss';
 import Selector from 'components/Select';
 import { Buy } from 'types';
 import ItemDetails from 'components/ItemDetails';
+import Footer from 'components/Footer';
 
 Modal.setAppElement('#root');
 const customStyles: Styles = {
@@ -55,7 +56,7 @@ function App() {
         <header className="App-header">
           <div className="Logo">
             <figure />
-            <h1>Digital</h1>
+            <h1>lambda.Digital</h1>
           </div>
 
           <div className="subheader">
@@ -64,6 +65,7 @@ function App() {
             <Selector onChange={(e) => onChangeRange(e?.value || 0)} />
           </div>
         </header>
+
         <main>
           {items.map((d) => (
             <Item key={d.id} item={d} show={openModal} />
@@ -72,6 +74,8 @@ function App() {
             <Item key={`hidden${d.id}`} item={undefined} />
           ))}
         </main>
+
+        <Footer />
       </div>
       <Modal
         isOpen={!!itemDetails}

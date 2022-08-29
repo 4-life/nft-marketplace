@@ -11,6 +11,20 @@
   padding: 0;
   height: 100%;
 
+  a {
+    color: map.get($text-colors, "secondary");
+    text-decoration: none;
+    border-bottom: 1px solid map.get($text-colors, "secondary");
+
+    &:hover {
+      opacity: .6;
+    }
+
+    &:active {
+      opacity: .8;
+    }
+  }
+
   .bg-shapes {
     position: absolute;
     top: 0;

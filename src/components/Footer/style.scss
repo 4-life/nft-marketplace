@@ -1,0 +1,85 @@
+@use 'sass:map';
+@import 'styles/_colors.scss';
+@import 'styles/_spacing.scss';
+@import 'styles/_breakpoints.scss';
+
+.App-footer {
+  color: map.get($text-colors, "shadowed");
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: {
+    top: map.get($spacing, "4");
+    bottom: map.get($spacing, "4");
+  };
+
+  padding: {
+    left: map.get($spacing, "1");
+    right: map.get($spacing, "1");
+  };
+
+  .subfooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 600px;
+    margin-bottom: map.get($spacing, "3");
+
+    .footer-text {
+      font-size: .9em;
+      letter-spacing: 1px;
+      margin-left: map.get($spacing, "3");
+      line-height: 2em;
+
+      .description {
+        color: map.get($text-colors, "main");
+        line-height: 1.2em;
+      }
+    }
+
+    @media (max-width: $layout-breakpoint-small) {
+      flex-direction: column;
+    }
+  }
+
+  .Logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-right: 3px solid map.get($theme-colors, "danger");
+    letter-spacing: 1px;
+    padding: {
+      right: map.get($spacing, "3");
+      top: map.get($spacing, "3");
+      bottom: map.get($spacing, "3");
+    };
+
+    @media (max-width: $layout-breakpoint-small) {
+      border-right: none;
+      border-bottom: 3px solid map.get($theme-colors, "danger");
+      padding-right: 0;
+      margin-bottom: map.get($spacing, "3")
+    }
+
+    h3 {
+      margin: 0;
+      margin-top: map.get($spacing, "2");
+      color: map.get($text-colors, "main");
+    }
+
+    figure {
+      width: 70px;
+      height: 70px;
+      background: url("../../../public/images/logo_footer.png");
+      background-size: cover;
+      background-position: center;
+      margin: 0;
+      margin-right: map.get($spacing, "1");
+      box-shadow: 0 0 5px 2px map.get($theme-colors, "shadow");
+      border-radius: 14px;
+    }
+  }
+}
+
