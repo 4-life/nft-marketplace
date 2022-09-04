@@ -1,12 +1,13 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import Modal, { Styles } from 'react-modal';
 import Item from 'components/Item';
-import data from 'dummy';
+import { useQuery, gql } from '@apollo/client';
 import './App.scss';
 import Selector from 'components/Select';
 import { Buy } from 'types';
 import ItemDetails from 'components/ItemDetails';
 import Footer from 'components/Footer';
+import Loader from 'components/Loader';
 
 Modal.setAppElement('#root');
 const customStyles: Styles = {
@@ -31,13 +32,45 @@ const customStyles: Styles = {
   },
 };
 
+const GET_ITEMS = gql`
+  query getItems {
+    items {
+      id
+      pic
+      author {
+        id
+        name
+        avatar
+      }
+      views
+      title
+      price
+      likes
+      comments
+      publishDate
+    }
+  }
+`;
+
 function App() {
-  const [items, setItems] = useState<Buy[]>(data);
+  const { loading, error, data } = useQuery(GET_ITEMS);
+
+  const [items, setItems] = useState<Buy[]>([]);
   const [itemDetails, setItemDetails] = useState<Buy | undefined>(undefined);
-  const onChangeRange = useCallback((range: number) => {
-    const diff = new Date().getTime() - range * 24 * 60 * 60 * 1000;
-    setItems(data.filter((val) => val.publishDate.getTime() >= diff));
-  }, []);
+
+  useEffect(() => {
+    if (data?.items) {
+      setItems(data?.items);
+    }
+  }, [data]);
+
+  const onChangeRange = useCallback(
+    (range: number) => {
+      const diff = new Date().getTime() - range * 24 * 60 * 60 * 1000;
+      setItems(items.filter((val) => val.publishDate.getTime() >= diff));
+    },
+    [items]
+  );
 
   const openModal = (details: Buy) => {
     setItemDetails(details);
@@ -67,6 +100,12 @@ function App() {
         </header>
 
         <main>
+          {loading && (
+            <div className="itemsLoader">
+              <Loader />
+            </div>
+          )}
+          {error && <div className="itemsLoader">Can&apos;t load items</div>}
           {items.map((d) => (
             <Item key={d.id} item={d} show={openModal} />
           ))}
