@@ -4,6 +4,7 @@ export default function env() {
       PRODUCTION: true,
       imagesUrl: 'https://nft-images.4life.work',
       avatarsUrls: 'https://nft-images.4life.work/avatars',
+      uri: 'https://0lqd6iq4ba.execute-api.eu-central-1.amazonaws.com/prod/',
     };
   }
 
@@ -11,5 +12,6 @@ export default function env() {
     PRODUCTION: false,
     imagesUrl: 'https://nft-images.4life.work',
     avatarsUrls: 'https://nft-images.4life.work/avatars',
+    uri: 'https://0lqd6iq4ba.execute-api.eu-central-1.amazonaws.com/dev/',
   };
 }

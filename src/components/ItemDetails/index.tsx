@@ -1,11 +1,11 @@
 import React, { memo } from 'react';
-import { Buy } from 'types';
+import { Item } from 'types';
 import './style.scss';
 import { getAvatarsUrl, getImageUrl } from 'utils/getImagesUrl';
 import getTimeAgo from 'utils/timeAgo';
 import kFormatter from 'utils/kFormatter';
 
-type Props = { item: Buy; close?: () => void };
+type Props = { item: Item; close?: () => void };
 
 function ItemDetails({ item, close }: Props) {
   return (

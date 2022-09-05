@@ -6,10 +6,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const { PRODUCTION } = env();
+const { PRODUCTION, uri } = env();
 
 const client = new ApolloClient({
-  uri: 'https://zfk6ldinl5.execute-api.eu-central-1.amazonaws.com/dev/',
+  uri,
   cache: new InMemoryCache(),
 });
 

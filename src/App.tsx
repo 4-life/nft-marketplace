@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Modal, { Styles } from 'react-modal';
-import Item from 'components/Item';
+import ItemComponent from 'components/Item';
 import { useQuery, gql } from '@apollo/client';
 import './App.scss';
 import Selector from 'components/Select';
-import { Buy } from 'types';
+import { Item, ItemsData, ItemsVars } from 'types';
 import ItemDetails from 'components/ItemDetails';
 import Footer from 'components/Footer';
 import Loader from 'components/Loader';
@@ -33,12 +33,11 @@ const customStyles: Styles = {
 };
 
 const GET_ITEMS = gql`
-  query getItems {
-    items {
+  query GetItems($range: Int!) {
+    items(range: $range) {
       id
       pic
       author {
-        id
         name
         avatar
       }
@@ -53,26 +52,22 @@ const GET_ITEMS = gql`
 `;
 
 function App() {
-  const { loading, error, data } = useQuery(GET_ITEMS);
-
-  const [items, setItems] = useState<Buy[]>([]);
-  const [itemDetails, setItemDetails] = useState<Buy | undefined>(undefined);
-
-  useEffect(() => {
-    if (data?.items) {
-      setItems(data?.items);
+  const { loading, error, data, refetch } = useQuery<ItemsData, ItemsVars>(
+    GET_ITEMS,
+    {
+      variables: { range: 365 },
+      notifyOnNetworkStatusChange: true,
     }
-  }, [data]);
-
-  const onChangeRange = useCallback(
-    (range: number) => {
-      const diff = new Date().getTime() - range * 24 * 60 * 60 * 1000;
-      setItems(items.filter((val) => val.publishDate.getTime() >= diff));
-    },
-    [items]
   );
 
-  const openModal = (details: Buy) => {
+  const [itemDetails, setItemDetails] = useState<Item | undefined>(undefined);
+
+  const onChangeRange = useCallback(
+    (newRange: number) => refetch({ range: newRange }),
+    [refetch]
+  );
+
+  const openModal = (details: Item) => {
     setItemDetails(details);
   };
 
@@ -95,22 +90,24 @@ function App() {
           <div className="subheader">
             <h2>Market</h2>
 
+            {loading && (
+              <div className="itemsLoader">
+                <Loader />
+              </div>
+            )}
+
             <Selector onChange={(e) => onChangeRange(e?.value || 0)} />
           </div>
         </header>
 
         <main>
-          {loading && (
-            <div className="itemsLoader">
-              <Loader />
-            </div>
-          )}
           {error && <div className="itemsLoader">Can&apos;t load items</div>}
-          {items.map((d) => (
-            <Item key={d.id} item={d} show={openModal} />
+          {data?.items.map((d) => (
+            <ItemComponent key={d.id} item={d} show={openModal} />
           ))}
-          {items.map((d) => (
-            <Item key={`hidden${d.id}`} item={undefined} />
+          {/* hidden items for saving flex grid */}
+          {data?.items.map((d) => (
+            <ItemComponent key={`hidden${d.id}`} item={undefined} />
           ))}
         </main>
 

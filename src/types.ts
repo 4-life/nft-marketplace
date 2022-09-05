@@ -4,7 +4,7 @@ export interface Author {
   avatar?: string;
 }
 
-export interface Buy {
+export interface Item {
   id?: number;
   pic?: string;
   author: Author;
@@ -13,5 +13,13 @@ export interface Buy {
   price: string;
   likes: number;
   comments: number;
-  publishDate: Date;
+  publishDate: string;
+}
+
+export interface ItemsData {
+  items: Item[];
+}
+
+export interface ItemsVars {
+  range: number;
 }

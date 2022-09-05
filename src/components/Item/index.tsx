@@ -1,14 +1,14 @@
 import React, { memo, useState } from 'react';
-import { Buy } from 'types';
+import { Item } from 'types';
 import kFormatter from 'utils/kFormatter';
 import getTimeAgo from 'utils/timeAgo';
 import { getImageUrl, getAvatarsUrl } from 'utils/getImagesUrl';
 import Loader from '../Loader';
 import './style.scss';
 
-type Props = { item: Buy | undefined; show?: (details: Buy) => void };
+type Props = { item: Item | undefined; show?: (details: Item) => void };
 
-function Item({ item, show }: Props) {
+function ItemComponent({ item, show }: Props) {
   const [loaded, setLoaded] = useState(false);
   if (!item) {
     return <div className="Item hidden" />;
@@ -69,4 +69,4 @@ function Item({ item, show }: Props) {
   );
 }
 
-export default memo(Item);
+export default memo(ItemComponent);

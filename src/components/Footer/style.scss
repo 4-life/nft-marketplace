@@ -42,7 +42,7 @@
       }
     }
 
-    @media (max-width: $layout-breakpoint-small) {
+    @media (max-width: $layout-breakpoint-medium) {
       flex-direction: column;
     }
   }
@@ -60,7 +60,7 @@
       bottom: map.get($spacing, "3");
     };
 
-    @media (max-width: $layout-breakpoint-small) {
+    @media (max-width: $layout-breakpoint-medium) {
       border-right: none;
       border-bottom: 3px solid map.get($theme-colors, "danger");
       padding-right: 0;

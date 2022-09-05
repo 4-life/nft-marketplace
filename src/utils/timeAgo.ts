@@ -8,7 +8,7 @@ TimeAgo.addDefaultLocale(en);
 // Create formatter (English).
 const timeAgo = new TimeAgo('en-US');
 
-export default function getTimeAgo(date: Date, short = true): string {
+export default function getTimeAgo(date: string, short = true): string {
   const time = timeAgo.format(new Date(date), short ? 'mini-now' : undefined);
 
   if (Array.isArray(time)) {
