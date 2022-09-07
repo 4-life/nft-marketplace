@@ -1,6 +1,8 @@
-# The example of NFT marketplace [![Deploy status](https://github.com/4-life/nft-marketplace/actions/workflows/main.yml/badge.svg)](https://github.com/4-life/nft-marketplace/actions)
+# <img src="https://github.com/4-life/nft-marketplace/blob/master/public/images/logo_footer.png?raw=true" width="50px" height="50px" alt="NFT Marketplace"/> lambda.Digital NFT marketplace [![Deploy status](https://github.com/4-life/nft-marketplace/actions/workflows/main.yml/badge.svg)](https://github.com/4-life/nft-marketplace/actions)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<p align="center">
+  <img src="https://github.com/4-life/nft-marketplace/blob/master/public/poster.png?raw=true" alt="NFT Marketplace"/>
+</p>
 
 ## Used libraries
 
@@ -17,3 +19,7 @@ Runs the app in the development mode
 Launches the test runner
 
 ### `npm run build`
+
+## Back-end repo:
+
+https://github.com/4-life/nft-marketplace-graphql-server
