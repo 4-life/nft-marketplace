@@ -89,15 +89,14 @@ function App() {
 
           <div className="subheader">
             <h2>Market</h2>
-
-            {loading && (
-              <div className="itemsLoader">
-                <Loader />
-              </div>
-            )}
-
             <Selector onChange={(e) => onChangeRange(e?.value || 0)} />
           </div>
+
+          {loading && (
+            <div className="itemsLoader">
+              <Loader />
+            </div>
+          )}
         </header>
 
         <main>
