@@ -64,6 +64,10 @@
     padding-left: map.get($spacing, "3");
     padding-right: map.get($spacing, "3");
 
+    @media (max-width: $layout-breakpoint-medium) {
+      padding-left: map.get($spacing, "2");
+    }
+
     .subheader {
       padding-right: 5vw;
       display: flex;

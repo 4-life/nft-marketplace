@@ -37,6 +37,7 @@ const selectorStyles: StylesConfig<Option, false, GroupBase<Option>> = {
     padding: '15px 20px',
     border: 'none',
     cursor: 'pointer',
+    minHeight: '62px',
     boxShadow: 'none',
     ':hover': {
       background: 'transparent',
