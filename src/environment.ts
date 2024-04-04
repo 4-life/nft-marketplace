@@ -12,6 +12,6 @@ export default function env() {
     PRODUCTION: false,
     imagesUrl: 'https://nft-images.4life.work',
     avatarsUrls: 'https://nft-images.4life.work/avatars',
-    uri: 'http://localhost:3005/dev',
+    uri: 'http://localhost:3005',
   };
 }

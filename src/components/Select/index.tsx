@@ -92,6 +92,7 @@ function Selector({ onChange }: Props) {
         styles={selectorStyles}
         onChange={(newValue) => onChange(newValue)}
         components={{ DropdownIndicator }}
+        isSearchable={false}
       />
     </div>
   );
