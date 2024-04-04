@@ -21,7 +21,7 @@ function Item() {
           &nbsp;&nbsp;
           {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
           <a href="#">Privacy Policy</a>
-          <p>2023 &copy; All rights reserved</p>
+          <p>2024 &copy; All rights reserved</p>
         </div>
       </div>
     </footer>
