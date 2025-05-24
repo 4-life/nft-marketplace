@@ -21,7 +21,13 @@ function MetaBallsCanvas(): JSX.Element {
     const draw = (gl: WebGLRenderingContext) => {
       const numMetaballs = 100;
       const speed = 1.4;
-      const metaballs: { x: number; y: number; vx: number; vy: number; r: number }[] = [];
+      const metaballs: {
+        x: number;
+        y: number;
+        vx: number;
+        vy: number;
+        r: number;
+      }[] = [];
 
       for (let i = 0; i < numMetaballs; i++) {
         const radius = Math.random() * 300 * (window.innerWidth > 1600 ? 2 : 1);
@@ -73,7 +79,10 @@ function MetaBallsCanvas(): JSX.Element {
         gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
         }`;
 
-      const vertexShader = compileShader(vertexShaderSrc, gl.VERTEX_SHADER) as WebGLShader;
+      const vertexShader = compileShader(
+        vertexShaderSrc,
+        gl.VERTEX_SHADER
+      ) as WebGLShader;
       const fragmentShader = compileShader(
         fragmentShaderSrc,
         gl.FRAGMENT_SHADER
