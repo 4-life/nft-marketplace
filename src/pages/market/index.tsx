@@ -78,14 +78,12 @@ function Market() {
     <div className="Market">
       <div className="subheader">
         <h2>Market</h2>
-        <div className="itemsLoader">
-          {loading && <Loader />}
-          {error && <p>Can&apos;t load items</p>}
-          {!loading && !data?.items.length && <p>No items</p>}
-        </div>
         <Selector onChange={(e) => onChangeRange(e?.value || 0)} />
       </div>
       <main>
+        <div className="itemsLoader">{loading && <Loader />}</div>
+        {error && <p>Can&apos;t load items</p>}
+        {!loading && !data?.items.length && <p>No items</p>}
         {data?.items.map((d) => (
           <ItemComponent key={d.id} item={d} show={openModal} />
         ))}

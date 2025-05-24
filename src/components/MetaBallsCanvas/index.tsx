@@ -36,7 +36,7 @@ function MetaBallsCanvas(): JSX.Element {
           y: Math.random() * (height - 2 * radius) + radius,
           vx: (Math.random() - 0.5) * speed,
           vy: (Math.random() - 0.5) * speed,
-          r: radius * 0.09,
+          r: radius * 0.03,
         });
       }
 
