@@ -1,0 +1,18 @@
+@use 'sass:map';
+@import 'styles/_colors.scss';
+@import 'styles/_spacing.scss';
+@import 'styles/_breakpoints.scss';
+
+div.Nav {
+  display: flex;
+  gap: map.get($spacing, "3");
+  align-items: flex-start;
+
+  a {
+    border-bottom: 1px solid transparent;
+  }
+
+  a.active {
+    border-bottom: 1px solid map.get($text-colors, "secondary");
+  }
+}

@@ -1,10 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Route, Routes } from 'react-router';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import env from 'environment';
-import './index.css';
-import App from './App';
+import Layout from 'components/Layout';
+import Market from 'pages/market';
+import Metaverse from 'pages/metaverse';
 import reportWebVitals from './reportWebVitals';
+
+import './index.css';
 
 const { PRODUCTION, uri } = env();
 
@@ -19,7 +23,14 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route index element={<Market />} />
+            <Route path="metaverse" element={<Metaverse />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </ApolloProvider>
   </React.StrictMode>
 );

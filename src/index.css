@@ -17,3 +17,21 @@ html, body, div#root {
 * {
   box-sizing: border-box;
 }
+
+::selection {
+  background: #b41cbf;
+  color: #fff;
+}
+
+::-moz-selection {
+  background: #b41cbf;
+  color: #fff;
+}
+
+img::selection {
+  background: #b41cbf;
+}
+
+img::-moz-selection {
+  background: #b41cbf;
+}

@@ -8,7 +8,11 @@
   width: 250px;
   height: 350px;
   flex-wrap: wrap;
-  margin: map.get($spacing, "3");
+  margin: {
+    top: map.get($spacing, "3");
+    bottom: map.get($spacing, "3");
+    left: map.get($spacing, "3") * 2;
+  };
   background: none;
   border: none;
   outline: none;

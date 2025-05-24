@@ -1,0 +1,30 @@
+@use 'sass:map';
+@import 'styles/_colors.scss';
+@import 'styles/_spacing.scss';
+@import 'styles/_breakpoints.scss';
+
+.Market {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-right: map.get($spacing, "4");
+  padding-left: map.get($spacing, "4");
+
+  main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    padding-left: 10vw;
+    padding-top: map.get($spacing, "3");
+
+    @media (max-width: $layout-breakpoint-large) {
+      padding-left: 0;
+      justify-content: space-around;
+    }
+  }
+
+  @media (max-width: $layout-breakpoint-large) {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}

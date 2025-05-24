@@ -2,11 +2,10 @@ import React, { useCallback, useState } from 'react';
 import Modal, { Styles } from 'react-modal';
 import ItemComponent from 'components/Item';
 import { useQuery, gql } from '@apollo/client';
-import './App.scss';
+import './index.scss';
 import Selector from 'components/Select';
 import { Item, ItemsData, ItemsVars } from 'types';
 import ItemDetails from 'components/ItemDetails';
-import Footer from 'components/Footer';
 import Loader from 'components/Loader';
 
 Modal.setAppElement('#root');
@@ -51,7 +50,7 @@ const GET_ITEMS = gql`
   }
 `;
 
-function App() {
+function Market() {
   const { loading, error, data, refetch } = useQuery<ItemsData, ItemsVars>(
     GET_ITEMS,
     {
@@ -76,42 +75,25 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <div className="bg-shapes" />
-      <div className="bg-noise" />
-
-      <div className="scroll">
-        <header className="App-header">
-          <div className="Logo">
-            <figure />
-            <h1>lambda.Digital</h1>
-          </div>
-
-          <div className="subheader">
-            <h2>Market</h2>
-            <Selector onChange={(e) => onChangeRange(e?.value || 0)} />
-          </div>
-
-          {loading && (
-            <div className="itemsLoader">
-              <Loader />
-            </div>
-          )}
-        </header>
-
-        <main>
-          {error && <div className="itemsLoader">Can&apos;t load items</div>}
-          {data?.items.map((d) => (
-            <ItemComponent key={d.id} item={d} show={openModal} />
-          ))}
-          {/* hidden items for saving flex grid */}
-          {data?.items.map((d) => (
-            <ItemComponent key={`hidden${d.id}`} item={undefined} />
-          ))}
-        </main>
-
-        <Footer />
+    <div className="Market">
+      <div className="subheader">
+        <h2>Market</h2>
+        <div className="itemsLoader">
+          {loading && <Loader />}
+          {error && <p>Can&apos;t load items</p>}
+          {!loading && !data?.items.length && <p>No items</p>}
+        </div>
+        <Selector onChange={(e) => onChangeRange(e?.value || 0)} />
       </div>
+      <main>
+        {data?.items.map((d) => (
+          <ItemComponent key={d.id} item={d} show={openModal} />
+        ))}
+        {/* hidden items for saving flex grid */}
+        {[...Array(10)].map((_d, i) => (
+          <ItemComponent key={`hidden${i + 1}`} item={undefined} />
+        ))}
+      </main>
       <Modal
         isOpen={!!itemDetails}
         onRequestClose={closeModal}
@@ -123,4 +105,4 @@ function App() {
   );
 }
 
-export default App;
+export default Market;
