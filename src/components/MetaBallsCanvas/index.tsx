@@ -20,7 +20,7 @@ function MetaBallsCanvas(): JSX.Element {
 
     const draw = (gl: WebGLRenderingContext) => {
       const numMetaballs = 100;
-      const speed = 1.4;
+      const speed = 0.8;
       const metaballs: {
         x: number;
         y: number;
@@ -30,7 +30,7 @@ function MetaBallsCanvas(): JSX.Element {
       }[] = [];
 
       for (let i = 0; i < numMetaballs; i++) {
-        const radius = Math.random() * 300 * (window.innerWidth > 1600 ? 2 : 1);
+        const radius = Math.random() * 1000;
         metaballs.push({
           x: Math.random() * (width - 2 * radius) + radius,
           y: Math.random() * (height - 2 * radius) + radius,
