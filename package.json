@@ -19,7 +19,7 @@
   "type": "module",
   "scripts": {
     "start": "react-router dev",
-    "build": "react-router build",
+    "build": "react-router build && node scripts/generate-manifest.mjs",
     "preview": "vite preview",
     "lint": "eslint src",
     "test": "vitest run",
