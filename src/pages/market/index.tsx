@@ -1,7 +1,5 @@
 import {
   ComponentType,
-  lazy,
-  Suspense,
   useCallback,
   useEffect,
   useRef,
@@ -19,7 +17,6 @@ import env from 'environment';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ModalComp = ComponentType<any>;
-const Selector = lazy(() => import('components/Select'));
 
 const PAGE_SIZE = 12;
 const INITIAL_VARS = { range: 365, limit: PAGE_SIZE, offset: 0 };
@@ -107,12 +104,16 @@ function Market() {
   const [hasMore, setHasMore] = useState(initialItems.length === PAGE_SIZE);
   const [isFetchingMore, setIsFetchingMore] = useState(false);
   const [Modal, setModal] = useState<ModalComp | null>(null);
+  const [Selector, setSelector] = useState<ModalComp | null>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     import('react-modal').then(({ default: ReactModal }) => {
       ReactModal.setAppElement('body');
       setModal(() => ReactModal as ModalComp);
+    });
+    import('components/Select').then(({ default: Select }) => {
+      setSelector(() => Select as ModalComp);
     });
   }, []);
 
@@ -163,9 +164,7 @@ function Market() {
     <div className="Market">
       <div className="subheader">
         <h2>Market</h2>
-        <Suspense fallback={null}>
-          <Selector onChange={(e) => onChangeRange(e?.value ?? 0)} />
-        </Suspense>
+        {Selector && <Selector onChange={(e: { value: number } | null) => onChangeRange(e?.value ?? 0)} />}
       </div>
       <main>
         {error && <p>Can&apos;t load items</p>}
