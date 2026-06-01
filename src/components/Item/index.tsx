@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import { Item } from 'types';
 import kFormatter from 'utils/kFormatter';
 import getTimeAgo from 'utils/timeAgo';
@@ -10,6 +10,14 @@ type Props = { item: Item | undefined; show?: (details: Item) => void };
 
 function ItemComponent({ item, show }: Props) {
   const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    if (imgRef.current?.complete) {
+      setLoaded(true);
+    }
+  }, []);
+
   if (!item) {
     return <div className="Item hidden" />;
   }
@@ -24,6 +32,7 @@ function ItemComponent({ item, show }: Props) {
     >
       {/* use img only for loaded event */}
       <img
+        ref={imgRef}
         alt=""
         style={{ display: 'none' }}
         src={imageUrl}

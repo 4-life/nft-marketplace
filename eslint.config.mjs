@@ -92,6 +92,7 @@ export default tseslint.config(
       ],
       '@typescript-eslint/no-explicit-any': ['error', { ignoreRestArgs: true }],
 
+      'react/react-in-jsx-scope': 'off',
       'react/jsx-filename-extension': [1, { extensions: ['.tsx', '.ts'] }],
       'react-hooks/exhaustive-deps': 'error',
       'react/require-default-props': 'off',

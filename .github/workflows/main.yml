@@ -12,11 +12,11 @@ jobs:
   install:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Cache node modules
         id: cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ./node_modules
           key: modules-${{ hashFiles('package-lock.json') }}
@@ -29,13 +29,15 @@ jobs:
     needs: install
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Restore node_modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ./node_modules
           key: modules-${{ hashFiles('package-lock.json') }}
 
+      - name: Generate route types
+        run: npx react-router typegen
       - name: Run linter
         run: npm run lint
       - name: Run tests
@@ -45,9 +47,9 @@ jobs:
     needs: tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Restore node_modules
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ./node_modules
           key: modules-${{ hashFiles('package-lock.json') }}
@@ -56,11 +58,14 @@ jobs:
         run: npm run build
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-central-1
 
       - name: Deploy static site to S3 bucket
-        run: aws s3 sync ./dist/ s3://system32-nft --delete
+        run: aws s3 sync ./build/client/ s3://system32-nft --delete
+
+      - name: Invalidate CloudFront cache
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"

@@ -1,9 +1,9 @@
-import React from 'react';
 import Select, {
   Options,
   StylesConfig,
   GroupBase,
   SingleValue,
+  CSSObjectWithLabel,
 } from 'react-select';
 import ArrowUpIcon from './icons/up.svg?react';
 import './style.scss';
@@ -29,57 +29,51 @@ const activeBackgroundColor =
 const menuBackgroundColor =
   'linear-gradient(152deg, rgba(211,94,220,1) -80%, rgba(29,34,35,0.9) 80%)';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const css = (obj: any): CSSObjectWithLabel =>
+  obj as unknown as CSSObjectWithLabel;
+
 const selectorStyles: StylesConfig<Option, false, GroupBase<Option>> = {
-  control: (props) => ({
-    ...props,
-    background: 'transparent',
-    borderRadius: '30px',
-    padding: '15px 20px',
-    border: 'none',
-    cursor: 'pointer',
-    minHeight: '62px',
-    boxShadow: 'none',
-    ':hover': {
+  control: (props) =>
+    css({
+      ...props,
       background: 'transparent',
+      borderRadius: '30px',
+      padding: '15px 20px',
       border: 'none',
+      cursor: 'pointer',
+      minHeight: '62px',
       boxShadow: 'none',
-    },
-  }),
-  indicatorSeparator: () => ({
-    display: 'none',
-  }),
-  dropdownIndicator: () => ({
-    display: 'none',
-  }),
-  singleValue: (props) => ({
-    ...props,
-    color: 'inherit',
-  }),
-  indicatorsContainer: (props) => ({
-    ...props,
-    padding: 0,
-  }),
-  option: (props, state) => ({
-    ...props,
-    cursor: 'pointer',
-    background:
-      state.isFocused || state.isSelected
-        ? activeBackgroundColor
-        : 'transparent',
-    opacity: state.isSelected ? 0.5 : 1,
-  }),
-  menu: (props) => ({
-    ...props,
-    padding: 0,
-    color: 'inherit',
-    borderRadius: '10px',
-    overflow: 'hidden',
-    background: menuBackgroundColor,
-  }),
-  menuList: (props) => ({
-    ...props,
-    padding: 0,
-  }),
+      ':hover': {
+        background: 'transparent',
+        border: 'none',
+        boxShadow: 'none',
+      },
+    }),
+  indicatorSeparator: () => css({ display: 'none' }),
+  dropdownIndicator: () => css({ display: 'none' }),
+  singleValue: (props) => css({ ...props, color: 'inherit' }),
+  indicatorsContainer: (props) => css({ ...props, padding: 0 }),
+  option: (props, state) =>
+    css({
+      ...props,
+      cursor: 'pointer',
+      background:
+        state.isFocused || state.isSelected
+          ? activeBackgroundColor
+          : 'transparent',
+      opacity: state.isSelected ? 0.5 : 1,
+    }),
+  menu: (props) =>
+    css({
+      ...props,
+      padding: 0,
+      color: 'inherit',
+      borderRadius: '10px',
+      overflow: 'hidden',
+      background: menuBackgroundColor,
+    }),
+  menuList: (props) => css({ ...props, padding: 0 }),
 };
 
 type Props = { onChange: (option: SingleValue<Option>) => void };
@@ -91,7 +85,7 @@ function Selector({ onChange }: Props) {
         defaultValue={rangeOptions[0]}
         options={rangeOptions}
         styles={selectorStyles}
-        onChange={(newValue) => onChange(newValue)}
+        onChange={onChange}
         components={{ DropdownIndicator }}
         isSearchable={false}
       />

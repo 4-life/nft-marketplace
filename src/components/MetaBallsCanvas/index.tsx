@@ -1,19 +1,35 @@
 import React, { useRef, useEffect } from 'react';
 import Scene from './Scene';
 
-function MetaBallsCanvas(): JSX.Element {
+function MetaBallsCanvas(): React.JSX.Element {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return undefined;
+    const parent = canvas?.parentElement;
+    if (!canvas || !parent) return undefined;
 
-    const scene = new Scene(canvas);
+    const numMetaballs = parent.clientWidth < 768 ? 50 : 100;
+    const scene = new Scene(canvas, parent.clientWidth, parent.clientHeight, numMetaballs);
 
-    return () => scene.destroy();
+    const observer = new ResizeObserver(([entry]) => {
+      const { inlineSize: width, blockSize: height } = entry.contentBoxSize[0];
+      scene.resize(width, height);
+    });
+    observer.observe(parent);
+
+    return () => {
+      scene.destroy();
+      observer.disconnect();
+    };
   }, []);
 
-  return <canvas ref={canvasRef} />;
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+    />
+  );
 }
 
 export default MetaBallsCanvas;

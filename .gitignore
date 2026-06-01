@@ -13,6 +13,9 @@
 /build
 /dist
 
+# react-router generated types
+/.react-router
+
 # misc
 .DS_Store
 .env.local

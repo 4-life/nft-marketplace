@@ -1,17 +1,74 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import Modal, { Styles } from 'react-modal';
+import {
+  ComponentType,
+  lazy,
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
+import type { Styles } from 'react-modal';
 import ItemComponent from 'components/Item';
 import { useQuery, gql } from '@apollo/client';
 import './index.scss';
-import Selector from 'components/Select';
 import { Item, ItemsData, ItemsVars } from 'types';
 import ItemDetails from 'components/ItemDetails';
 import Loader from 'components/Loader';
+import { useLoaderData } from 'react-router';
+import env from 'environment';
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ModalComp = ComponentType<any>;
+const Selector = lazy(() => import('components/Select'));
 
 const PAGE_SIZE = 12;
 const INITIAL_VARS = { range: 365, limit: PAGE_SIZE, offset: 0 };
 
-Modal.setAppElement('#root');
+const GET_ITEMS_QUERY = `
+  query GetItems($range: Int!, $limit: Int!, $offset: Int!) {
+    items(range: $range, limit: $limit, offset: $offset) {
+      id pic views title price likes comments publishDate
+      author { name avatar }
+    }
+  }
+`;
+
+export async function loader() {
+  try {
+    const res = await fetch(env().uri, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: GET_ITEMS_QUERY,
+        variables: INITIAL_VARS,
+      }),
+    });
+    const json = await res.json();
+    return { initialItems: (json.data?.items ?? []) as Item[] };
+  } catch {
+    return { initialItems: [] as Item[] };
+  }
+}
+
+const GET_ITEMS = gql`
+  query GetItems($range: Int!, $limit: Int!, $offset: Int!) {
+    items(range: $range, limit: $limit, offset: $offset) {
+      id
+      pic
+      author {
+        name
+        avatar
+      }
+      views
+      title
+      price
+      likes
+      comments
+      publishDate
+    }
+  }
+`;
+
 const customStyles: Styles = {
   content: {
     top: '50%',
@@ -34,46 +91,30 @@ const customStyles: Styles = {
   },
 };
 
-const GET_ITEMS = gql`
-  query GetItems($range: Int!, $limit: Int!, $offset: Int!) {
-    items(range: $range, limit: $limit, offset: $offset) {
-      id
-      pic
-      author {
-        name
-        avatar
-      }
-      views
-      title
-      price
-      likes
-      comments
-      publishDate
-    }
-  }
-`;
-
 function Market() {
-  const { loading, error, data, fetchMore, refetch } = useQuery<
-    ItemsData,
-    ItemsVars
-  >(GET_ITEMS, {
-    variables: INITIAL_VARS,
-    notifyOnNetworkStatusChange: true,
-  });
+  const { initialItems } = useLoaderData<typeof loader>();
+  const { loading, error, fetchMore, refetch } = useQuery<ItemsData, ItemsVars>(
+    GET_ITEMS,
+    {
+      variables: INITIAL_VARS,
+      notifyOnNetworkStatusChange: true,
+      skip: initialItems.length > 0,
+    },
+  );
 
   const [itemDetails, setItemDetails] = useState<Item | undefined>(undefined);
-  const [allItems, setAllItems] = useState<Item[]>([]);
-  const [hasMore, setHasMore] = useState(true);
+  const [allItems, setAllItems] = useState<Item[]>(initialItems);
+  const [hasMore, setHasMore] = useState(initialItems.length === PAGE_SIZE);
   const [isFetchingMore, setIsFetchingMore] = useState(false);
+  const [Modal, setModal] = useState<ModalComp | null>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (data?.items) {
-      setAllItems(data.items);
-      setHasMore(data.items.length === PAGE_SIZE);
-    }
-  }, [data]);
+    import('react-modal').then(({ default: ReactModal }) => {
+      ReactModal.setAppElement('body');
+      setModal(() => ReactModal as ModalComp);
+    });
+  }, []);
 
   const loadMore = useCallback(async () => {
     if (isFetchingMore || !hasMore) return;
@@ -122,11 +163,13 @@ function Market() {
     <div className="Market">
       <div className="subheader">
         <h2>Market</h2>
-        <Selector onChange={(e) => onChangeRange(e?.value || 0)} />
+        <Suspense fallback={null}>
+          <Selector onChange={(e) => onChangeRange(e?.value ?? 0)} />
+        </Suspense>
       </div>
       <main>
         {error && <p>Can&apos;t load items</p>}
-        {!loading && !data?.items.length && !error && <p>No items</p>}
+        {!loading && !allItems.length && !error && <p>No items</p>}
         {allItems.map((d: Item) => (
           <ItemComponent key={d.id} item={d} show={openModal} />
         ))}
@@ -137,13 +180,15 @@ function Market() {
           {(loading || isFetchingMore) && <Loader />}
         </div>
       </main>
-      <Modal
-        isOpen={!!itemDetails}
-        onRequestClose={closeModal}
-        style={customStyles}
-      >
-        {itemDetails && <ItemDetails item={itemDetails} close={closeModal} />}
-      </Modal>
+      {Modal && (
+        <Modal
+          isOpen={!!itemDetails}
+          onRequestClose={closeModal}
+          style={customStyles}
+        >
+          {itemDetails && <ItemDetails item={itemDetails} close={closeModal} />}
+        </Modal>
+      )}
     </div>
   );
 }

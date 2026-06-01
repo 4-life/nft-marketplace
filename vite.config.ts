@@ -1,37 +1,19 @@
-import { defineConfig } from 'vitest/config';
-import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+import { reactRouter } from '@react-router/dev/vite';
 import svgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import path from 'path';
 
 export default defineConfig({
   plugins: [
-    react(),
+    reactRouter(),
     svgr(),
     tsconfigPaths(),
   ],
-  test: {
-    globals: true,
-    environment: 'happy-dom',
-    setupFiles: './src/setupTests.ts',
-  },
-  build: {
-    rollupOptions: {
-      output: {
-        manualChunks: (id) => {
-          if (id.includes('node_modules/@apollo') || id.includes('node_modules/graphql')) {
-            return 'vendor-apollo';
-          }
-          if (id.includes('node_modules/react-dom') || id.includes('node_modules/react/') || id.includes('node_modules/scheduler')) {
-            return 'vendor-react';
-          }
-          if (id.includes('node_modules/')) {
-            return 'vendor';
-          }
-          return undefined;
-        },
-      },
-    },
+  ssr: {
+    // @apollo/client has no "exports" map so Node/Vite module runner picks main.cjs;
+    // bundling it here forces the ESM entry to be used in both dev SSR and prerender.
+    noExternal: ['@apollo/client', 'ts-invariant'],
   },
   css: {
     preprocessorOptions: {
